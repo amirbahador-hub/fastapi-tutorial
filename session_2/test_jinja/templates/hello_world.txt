@@ -1,0 +1,3 @@
+{% for animal in animals %}
+  Hello {{animal.name}} nice to meet you
+{% endfor %}

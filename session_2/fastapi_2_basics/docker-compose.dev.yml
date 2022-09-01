@@ -1,0 +1,18 @@
+version: "3.8"
+
+services:
+
+    postgres:
+        image: postgres:latest
+        ports:
+          - 5432:5432
+        environment:
+            POSTGRES_PORT: 5432
+            POSTGRES_DB: "fastapi_test_db"
+            POSTGRES_USER: "fastapi_test_user"
+            POSTGRES_PASSWORD: "fastapi_test_password"
+        volumes:
+            - postgres-data:/var/lib/postgresql/data/
+
+volumes:
+    postgres-data:
