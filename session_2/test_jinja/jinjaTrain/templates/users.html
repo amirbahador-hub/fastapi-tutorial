@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>User page</title>
+</head>
+<body>
+<h1>My Webpage</h1>
+
+<ul>
+    {% for user in users %}
+    <li>first name : {{user.fname}} last name: {{user.lname}}</li>
+    {% endfor %}
+</ul>
+{# a comment #}
+</body>
+</html>
