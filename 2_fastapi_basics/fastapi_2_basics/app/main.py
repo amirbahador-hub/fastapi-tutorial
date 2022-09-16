@@ -1,6 +1,6 @@
 from fastapi import FastAPI, Request, Response, status, HTTPException
 from fastapi.responses import FileResponse
-from fastapi.templating import Jinja2Templates
+from starlette.templating import Jinja2Templates
 import psycopg2
 from psycopg2.extras import RealDictCursor
 import time
@@ -9,7 +9,7 @@ from pydantic import BaseModel
 
 
 app = FastAPI()
-templates = Jinja2Templates("templates")
+templates = Jinja2Templates("app/templates")
 favicon_path = 'favicon.ico'
 
 
@@ -19,7 +19,7 @@ class Post(BaseModel):
     published: bool = True
 
 
-while True:
+while False:
     try:
         db_info = {
             "host":"localhost",
@@ -37,10 +37,11 @@ while True:
         print("Error :", error)
         time.sleep(2)
 
-@app.get("/hello")
+from fastapi.responses import HTMLResponse
+@app.get("/hello", response_class=HTMLResponse)
 async def greeting(request:Request, name:str):
     return templates.TemplateResponse("index.html", 
-            {"request": request, "name": name})
+            context={"request": request, "name": name})
 
 @app.get("/favicon.ico", include_in_schema=False)
 async def favicon():

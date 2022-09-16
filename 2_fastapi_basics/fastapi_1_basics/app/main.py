@@ -2,6 +2,7 @@ from fastapi import FastAPI, Response
 from pydantic import BaseModel
 from typing import Optional, Union
 from enum import Enum
+from fastapi import FastAPI, Response
 import uvicorn
 
 app = FastAPI()
@@ -60,8 +61,11 @@ def test_head():
 
 
 @app.trace("/")
-def test_trace():
+def test_trace(response: Response):
+    response.headers["TRACE"] = "HTTP/1.1"
+    response.status_code = 200
     ...
+    return {}
 
 
 if __name__ == "__main__":
